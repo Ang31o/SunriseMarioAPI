@@ -3,9 +3,11 @@ import { MongoClient } from "mongodb";
 const express = require("express");
 const body = require("body-parser");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 async function start() {
   try {
+    dotenv.config();
     const app = express();
 
     app.use(
@@ -16,9 +18,7 @@ async function start() {
     );
 
     // MongoDB connection
-    const mongo = await MongoClient.connect(
-      "mongodb://127.0.0.1:27017/crm_api"
-    );
+    const mongo = await MongoClient.connect(process.env.DB_URI as string);
 
     await mongo.connect();
 
